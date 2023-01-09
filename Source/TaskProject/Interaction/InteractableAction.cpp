@@ -14,7 +14,10 @@ void AInteractableAction::BeginPlay()
 	Super::BeginPlay();
 
 	if (ActionType)
+	{
 		Action = NewObject<UAction>(this, ActionType);
+		Action->Init();
+	}
 	else
 		UE_LOG(LogTemp, Error, TEXT("%hs >> No action specified!"), ANSI_TO_TCHAR(__FUNCTION__))
 }

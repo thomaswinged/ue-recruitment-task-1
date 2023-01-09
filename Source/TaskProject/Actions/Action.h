@@ -16,6 +16,10 @@ class TASKPROJECT_API UAction : public UObject
 
 public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category="Action")
+	void Init();
+	virtual void Init_Implementation() {}
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category="Action")
 	void Execute(const AActor* Subject);
 	virtual void Execute_Implementation(const AActor* Subject)
 	{
