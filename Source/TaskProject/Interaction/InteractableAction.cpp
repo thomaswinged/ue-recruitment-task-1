@@ -1,15 +1,15 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ButtonBase.h"
+#include "InteractableAction.h"
 
 
-AButtonBase::AButtonBase()
+AInteractableAction::AInteractableAction()
 {
 	PrimaryActorTick.bCanEverTick = false;
 }
 
-void AButtonBase::BeginPlay()
+void AInteractableAction::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -19,12 +19,12 @@ void AButtonBase::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("%hs >> No action specified!"), ANSI_TO_TCHAR(__FUNCTION__))
 }
 
-UAction* AButtonBase::GetAction() const
+UAction* AInteractableAction::GetAction() const
 {
 	return Action;
 }
 
-void AButtonBase::Interact_Implementation()
+void AInteractableAction::Interact_Implementation()
 {
 	if (Action)
 		Action->Execute(this);

@@ -6,15 +6,15 @@
 #include "GameFramework/Actor.h"
 #include "TaskProject/Interaction/Interfaces/IInteractable.h"
 #include "TaskProject/Actions/Action.h"
-#include "ButtonBase.generated.h"
+#include "InteractableAction.generated.h"
 
-UCLASS(Abstract)
-class TASKPROJECT_API AButtonBase : public AActor, public IInteractable
+UCLASS(Abstract, HideCategories=(Replication, Collision, HLOD, Physics, Networking, WorldPartition, Input, Actor, Cooking, DataLayers, Advanced, Rendering))
+class TASKPROJECT_API AInteractableAction : public AActor, public IInteractable
 {
 	GENERATED_BODY()
 
 public:
-	AButtonBase();
+	AInteractableAction();
 
 	UFUNCTION(BlueprintNativeEvent, Category="Interaction")
 	void Interact();
@@ -34,7 +34,7 @@ public:
 		UE_LOG(LogTemp, Warning, TEXT("%hs >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
 	}
 
-	UPROPERTY(EditAnywhere, Category="Button")
+	UPROPERTY(EditAnywhere, Category="Action")
 	TSubclassOf<UAction> ActionType;
 
 protected:
