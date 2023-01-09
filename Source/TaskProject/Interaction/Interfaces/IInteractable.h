@@ -3,8 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TaskProject/Utils.h"
 #include "UObject/Interface.h"
 #include "IInteractable.generated.h"
+
+UCLASS(BlueprintType)
+class UInteractedEvent : public UGameEvent { GENERATED_BODY() };
+
+UCLASS(BlueprintType)
+class UEnteredRangeEvent : public UGameEvent { GENERATED_BODY() };
+
+UCLASS(BlueprintType)
+class UExitedRangeEvent : public UGameEvent { GENERATED_BODY() };
+
 
 // This class does not need to be modified.
 UINTERFACE()
