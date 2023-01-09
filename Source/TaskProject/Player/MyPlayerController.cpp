@@ -19,8 +19,8 @@ void AMyPlayerController::SetupInputComponent()
 void AMyPlayerController::TriggerInteractables()
 {
 	if (const auto PossesedPawn = GetPawn())
-		if (const auto Presser = Cast<IInteractor>(PossesedPawn))
-			Presser->Execute_TriggerInteractables(PossesedPawn);
+		if (PossesedPawn->GetClass()->ImplementsInterface(UInteractor::StaticClass()))
+			IInteractor::Execute_TriggerInteractables(PossesedPawn);
 }
 
 void AMyPlayerController::BeginPlay()

@@ -31,10 +31,10 @@ void USphereInteractor::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AAct
 {
 	if (!InRange.Contains(Other))
 	{
-		if (const auto Interactable = Cast<IInteractable>(Other))
+		if (Other->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
 		{
 			InRange.Add(Other);
-			Interactable->Execute_OnRangeEnter(Other, GetOwner());
+			IInteractable::Execute_OnRangeEnter(Other, GetOwner());
 		}
 	}
 }
@@ -44,10 +44,10 @@ void USphereInteractor::OnEndOverlap(UPrimitiveComponent* OverlappedComponent, A
 {
 	if (InRange.Contains(OtherActor))
 	{
-		if (const auto Interactable = Cast<IInteractable>(OtherActor))
+		if (OtherActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
 		{
 			InRange.Remove(OtherActor);
-			Interactable->Execute_OnRangeExit(OtherActor, GetOwner());
+			IInteractable::Execute_OnRangeExit(OtherActor, GetOwner());
 		}
 	}
 		
@@ -57,9 +57,9 @@ void USphereInteractor::TriggerInteraction()
 {
 	for (const auto Actor : InRange)
 	{
-		if (const auto Interactable = Cast<IInteractable>(Actor))
+		if (Actor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
 		{
-			Interactable->Execute_Interact(Actor);
+			IInteractable::Execute_Interact(Actor);
 		}
 	}
 }
