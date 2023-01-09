@@ -40,6 +40,7 @@ Session.vim
 .vs
 .vscode
 .idea
+Plugins/Developer/RiderLink/
 
 # Compiled Object files
 *.slo
