@@ -16,23 +16,7 @@ class TASKPROJECT_API AInteractableAction : public AActor, public IInteractable
 public:
 	AInteractableAction();
 
-	UFUNCTION(BlueprintNativeEvent, Category="Interaction")
-	void Interact();
 	virtual void Interact_Implementation() override;
-
-	UFUNCTION(BlueprintNativeEvent, Category="Interaction")
-	void OnRangeEnter(AActor* Actor);
-	virtual void OnRangeEnter_Implementation(AActor* Actor) override
-	{
-		UE_LOG(LogTemp, Warning, TEXT("%hs >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
-	}
-
-	UFUNCTION(BlueprintNativeEvent, Category="Interaction")
-	void OnRangeExit(AActor* Actor);
-	virtual void OnRangeExit_Implementation(AActor* Actor) override
-	{
-		UE_LOG(LogTemp, Warning, TEXT("%hs >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
-	}
 
 	UPROPERTY(EditAnywhere, Category="Action")
 	TSubclassOf<UAction> ActionType;

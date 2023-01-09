@@ -20,12 +20,24 @@ class TASKPROJECT_API IInteractable
 {
 	GENERATED_BODY()
 public:
-	UFUNCTION(BlueprintNativeEvent, Category="Interaction")
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Interaction")
 	void Interact();
+	virtual void Interact_Implementation()
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%hs >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
+	}
 
 	UFUNCTION(BlueprintNativeEvent, Category="Interaction")
 	void OnRangeEnter(AActor* Actor);
+	virtual void OnRangeEnter_Implementation(AActor* Actor)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%hs >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
+	}
 
 	UFUNCTION(BlueprintNativeEvent, Category="Interaction")
 	void OnRangeExit(AActor* Actor);
+	virtual void OnRangeExit_Implementation(AActor* Actor)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%hs >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
+	}
 };

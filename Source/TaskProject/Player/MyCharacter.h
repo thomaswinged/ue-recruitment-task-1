@@ -28,7 +28,5 @@ protected:
 public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Interaction")
-	void TriggerInteractables();
 	virtual void TriggerInteractables_Implementation() override;
 };

@@ -24,4 +24,8 @@ class TASKPROJECT_API IInteractor
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Interaction")
 	void TriggerInteractables();
+	virtual void TriggerInteractables_Implementation()
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%hs >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
+	}
 };
