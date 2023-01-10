@@ -16,7 +16,7 @@ public:
 
 	virtual void SetupInputComponent() override;
 
-	void TriggerInteractables();
+	void HandleLMBClick();
 
 protected:
 	virtual void BeginPlay() override;

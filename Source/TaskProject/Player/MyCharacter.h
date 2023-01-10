@@ -9,7 +9,7 @@
 #include "MyCharacter.generated.h"
 
 UCLASS()
-class TASKPROJECT_API AMyCharacter : public ACharacter, public IInteractor
+class TASKPROJECT_API AMyCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -19,14 +19,11 @@ public:
 	UPROPERTY(EditAnywhere, Category="Interaction")
 	USphereInteractor* SphereInteractor;
 
-	UPROPERTY(EditAnywhere, Category="Interaction")
-	float InteractionRadius = 100.f;
-
 protected:
 	virtual void BeginPlay() override;
 
 public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	virtual void TriggerInteractables_Implementation() override;
+	void InteractWithWorld() const;
 };

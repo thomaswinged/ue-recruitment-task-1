@@ -10,7 +10,7 @@ AMyCharacter::AMyCharacter()
 
 	SphereInteractor = CreateDefaultSubobject<USphereInteractor>(TEXT("InteractablesDetector"));
 	SphereInteractor->SetupAttachment(GetRootComponent());
-	SphereInteractor->SetSphereRadius(InteractionRadius);
+	SphereInteractor->SetSphereRadius(100.f);
 }
 
 void AMyCharacter::BeginPlay()
@@ -23,7 +23,10 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
-void AMyCharacter::TriggerInteractables_Implementation()
+void AMyCharacter::InteractWithWorld() const
 {
-	SphereInteractor->TriggerInteraction();			
+	for (const auto Component : GetComponentsByInterface(UInteractor::StaticClass()))
+	{
+		IInteractor::Execute_TriggerInteractables(Component);
+	}
 }

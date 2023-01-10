@@ -26,6 +26,17 @@ void USphereInteractor::TickComponent(float DeltaTime, ELevelTick TickType,
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
+void USphereInteractor::TriggerInteractables_Implementation()
+{
+	for (const auto Actor : InRange)
+	{
+		if (Actor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
+		{
+			IInteractable::Execute_Interact(Actor);
+		}
+	}
+}
+
 void USphereInteractor::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* Other,
                                        UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -51,15 +62,4 @@ void USphereInteractor::OnEndOverlap(UPrimitiveComponent* OverlappedComponent, A
 		}
 	}
 		
-}
-
-void USphereInteractor::TriggerInteraction()
-{
-	for (const auto Actor : InRange)
-	{
-		if (Actor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
-		{
-			IInteractable::Execute_Interact(Actor);
-		}
-	}
 }
