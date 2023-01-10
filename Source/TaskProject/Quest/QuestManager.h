@@ -7,7 +7,7 @@
 #include "Interfaces/IObserver.h"
 #include "QuestManager.generated.h"
 
-UCLASS(Abstract)
+UCLASS(Abstract, HideCategories=(Transform, Rendering, Replication, Collision, HLOD, Physics, Networking, WorldPartition, Input, Actor, Advanced, Cooking, DataLayers))
 class TASKPROJECT_API AQuestManager : public AActor, public IObserver
 {
 	GENERATED_BODY()
@@ -15,17 +15,23 @@ class TASKPROJECT_API AQuestManager : public AActor, public IObserver
 public:
 	AQuestManager();
 
-	UPROPERTY(EditAnywhere)
-	TMap<AActor*, TSubclassOf<UGameEvent>> Objectives;
-
-	UFUNCTION(BlueprintCallable)
-	TSubclassOf<UGameEvent> GetNextObjective(AActor*& Object);
+	UFUNCTION(BlueprintPure)
+	bool GetNextObjective(FQuestObjective& OutObjective);
 
 protected:
 	virtual void BeginPlay() override;
 
-	void HandleObjectiveDone(AActor* ObjectiveSubject);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FQuestObjective> Objectives;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnObjectiveCompleted(FQuestObjective Objective);
+
+	void SetObjectiveCompleted(int32 ID, bool bCompleted);
 
 public:
 	virtual void OnNotify_Implementation(UObject* Subject, TSubclassOf<UGameEvent> Event) override;
+	
+private:
+	void InitializeObjectives();
 };

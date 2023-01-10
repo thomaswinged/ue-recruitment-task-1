@@ -7,3 +7,22 @@
 
 UCLASS(Abstract, BlueprintType)
 class UGameEvent : public UObject { GENERATED_BODY() };
+
+
+USTRUCT(BlueprintType)
+struct FQuestObjective
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadOnly)
+	int32 ID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AActor* Subject;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UGameEvent> EventType;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool Completed = false;
+};

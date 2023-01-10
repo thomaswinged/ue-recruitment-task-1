@@ -15,13 +15,18 @@ void AQuestManager::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TArray<AActor*> ObjectiveActors;
-	Objectives.GetKeys(ObjectiveActors);
-	for (const auto Objective : ObjectiveActors)
+	InitializeObjectives();
+}
+
+void AQuestManager::InitializeObjectives()
+{
+	for (int32 i = 0; i < Objectives.Num(); i++)
 	{
-		if (Objective->GetClass()->ImplementsInterface(UObservable::StaticClass()))
+		Objectives[i].ID = i;
+		
+		if (Objectives[i].Subject->GetClass()->ImplementsInterface(UObservable::StaticClass()))
 		{
-			IObservable::Execute_AddListener(Objective, this);
+			IObservable::Execute_AddListener(Objectives[i].Subject, this);
 		}
 	}
 }
@@ -32,39 +37,42 @@ void AQuestManager::OnNotify_Implementation(UObject* Subject, TSubclassOf<UGameE
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s >> No more objectives!"), ANSI_TO_TCHAR(__FUNCTION__));
 	}
-	
-	AActor* NextSubject;
-	const auto EventType = GetNextObjective(NextSubject);
-	if (NextSubject && Subject == NextSubject && Event == EventType)
+
+	FQuestObjective NextObjective;
+	if (GetNextObjective(NextObjective) && Subject == NextObjective.Subject && Event == NextObjective.EventType)
 	{
-		HandleObjectiveDone(NextSubject);
+		SetObjectiveCompleted(NextObjective.ID, true);
+		
+		if (Objectives[NextObjective.ID].Subject->GetClass()->ImplementsInterface(UObservable::StaticClass()))
+		{
+			IObservable::Execute_RemoveListener(Objectives[NextObjective.ID].Subject, this);
+		}
+
+		OnObjectiveCompleted(NextObjective);
 	}
-	
 }
 
-TSubclassOf<UGameEvent> AQuestManager::GetNextObjective(AActor*& OutObject)
+bool AQuestManager::GetNextObjective(FQuestObjective& OutObjective)
 {
-	TArray<AActor*> ObjectiveActors;
-	Objectives.GetKeys(ObjectiveActors);
-
-	if (ObjectiveActors.Num() > 0)
+	if (Objectives.Num() > 0)
 	{
-		OutObject = ObjectiveActors[0];
-
-		return Objectives.FindRef(ObjectiveActors[0]);
+		for (FQuestObjective Objective : Objectives)
+		{
+			if (!Objective.Completed)
+			{
+				OutObjective = Objective;
+				return true;
+			}
+		}
 	}
 
-	return nullptr;
+	return false;
 }
 
-void AQuestManager::HandleObjectiveDone(AActor* ObjectiveSubject)
+void AQuestManager::SetObjectiveCompleted(int32 ID, bool bCompleted)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%s >> Check!"), ANSI_TO_TCHAR(__FUNCTION__));
-
-	if (ObjectiveSubject->GetClass()->ImplementsInterface(UObservable::StaticClass()))
+	if (Objectives.Num() > ID)
 	{
-		IObservable::Execute_RemoveListener(ObjectiveSubject, this);
+		Objectives[ID].Completed = bCompleted;
 	}
-
-	Objectives.FindAndRemoveChecked(ObjectiveSubject);
 }
