@@ -15,23 +15,25 @@ class TASKPROJECT_API AQuestManager : public AActor, public IObserver
 public:
 	AQuestManager();
 
+	virtual void OnNotify_Implementation(UObject* Subject, TSubclassOf<UGameEvent> Event) override;
+	
 	UFUNCTION(BlueprintPure)
-	bool GetNextObjective(FQuestObjective& OutObjective);
+	bool GetNextObjective(FQuestObjective& OutObjective) const;
 
 protected:
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
 	TArray<FQuestObjective> Objectives;
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnObjectiveCompleted(FQuestObjective Objective);
 
-	void SetObjectiveCompleted(int32 ID, bool bCompleted);
-
-public:
-	virtual void OnNotify_Implementation(UObject* Subject, TSubclassOf<UGameEvent> Event) override;
 	
 private:
 	void InitializeObjectives();
+	
+	void SetEnabledObjectiveListener(int32 ID, bool bEnabled);
+
+	void SetObjectiveCompleted(int32 ID, bool bCompleted);
 };

@@ -23,36 +23,35 @@ void AQuestManager::InitializeObjectives()
 	for (int32 i = 0; i < Objectives.Num(); i++)
 	{
 		Objectives[i].ID = i;
-		
-		if (Objectives[i].Subject->GetClass()->ImplementsInterface(UObservable::StaticClass()))
-		{
-			IObservable::Execute_AddListener(Objectives[i].Subject, this);
-		}
+
+		SetEnabledObjectiveListener(i, true);
+	}
+}
+
+void AQuestManager::SetEnabledObjectiveListener(int32 ID, bool bEnabled)
+{
+	if (Objectives[ID].Subject->GetClass()->ImplementsInterface(UObservable::StaticClass()))
+	{
+		if (bEnabled)
+			IObservable::Execute_AddListener(Objectives[ID].Subject, this);
+		else
+			IObservable::Execute_RemoveListener(Objectives[ID].Subject, this);
 	}
 }
 
 void AQuestManager::OnNotify_Implementation(UObject* Subject, TSubclassOf<UGameEvent> Event)
 {
-	if (Objectives.Num() == 0)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("%s >> No more objectives!"), ANSI_TO_TCHAR(__FUNCTION__));
-	}
-
 	FQuestObjective NextObjective;
 	if (GetNextObjective(NextObjective) && Subject == NextObjective.Subject && Event == NextObjective.EventType)
 	{
 		SetObjectiveCompleted(NextObjective.ID, true);
-		
-		if (Objectives[NextObjective.ID].Subject->GetClass()->ImplementsInterface(UObservable::StaticClass()))
-		{
-			IObservable::Execute_RemoveListener(Objectives[NextObjective.ID].Subject, this);
-		}
+		SetEnabledObjectiveListener(NextObjective.ID, false);
 
 		OnObjectiveCompleted(NextObjective);
 	}
 }
 
-bool AQuestManager::GetNextObjective(FQuestObjective& OutObjective)
+bool AQuestManager::GetNextObjective(FQuestObjective& OutObjective) const
 {
 	if (Objectives.Num() > 0)
 	{
@@ -69,7 +68,7 @@ bool AQuestManager::GetNextObjective(FQuestObjective& OutObjective)
 	return false;
 }
 
-void AQuestManager::SetObjectiveCompleted(int32 ID, bool bCompleted)
+void AQuestManager::SetObjectiveCompleted(const int32 ID, const bool bCompleted)
 {
 	if (Objectives.Num() > ID)
 	{
