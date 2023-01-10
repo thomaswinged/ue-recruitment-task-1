@@ -35,20 +35,20 @@ public:
 	void Interact();
 	virtual void Interact_Implementation()
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%hs >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
+		UE_LOG(LogTemp, Warning, TEXT("%s >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
 	}
 
 	UFUNCTION(BlueprintNativeEvent, Category="Interaction")
 	void OnRangeEnter(AActor* Actor);
 	virtual void OnRangeEnter_Implementation(AActor* Actor)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%hs >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
+		UE_LOG(LogTemp, Warning, TEXT("%s >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
 	}
 
 	UFUNCTION(BlueprintNativeEvent, Category="Interaction")
 	void OnRangeExit(AActor* Actor);
 	virtual void OnRangeExit_Implementation(AActor* Actor)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%hs >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
+		UE_LOG(LogTemp, Warning, TEXT("%s >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
 	}
 };

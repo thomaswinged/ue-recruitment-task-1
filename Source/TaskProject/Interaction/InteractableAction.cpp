@@ -21,7 +21,7 @@ void AInteractableAction::BeginPlay()
 		Action->Init();
 	}
 	else
-		UE_LOG(LogTemp, Error, TEXT("%hs >> No action specified!"), ANSI_TO_TCHAR(__FUNCTION__))
+		UE_LOG(LogTemp, Error, TEXT("%s >> No action specified!"), ANSI_TO_TCHAR(__FUNCTION__))
 }
 
 UAction* AInteractableAction::GetAction() const

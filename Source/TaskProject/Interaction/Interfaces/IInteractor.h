@@ -26,6 +26,6 @@ public:
 	void TriggerInteractables();
 	virtual void TriggerInteractables_Implementation()
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%hs >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
+		UE_LOG(LogTemp, Warning, TEXT("%s >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
 	}
 };
