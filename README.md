@@ -1,3 +1,7 @@
+## Blog post entry
+If you have not visited it yet, I strongly suggest checking out my blog entry explaining the code I shared in this repo:<br>
+[https://www.thomaswinged.me/entry/ue-recruitment-task-1](https://www.thomaswinged.me/entry/ue-recruitment-task-1)
+
 ## Unreal Developer - recruitment task
 
 Your task is to create a simple but effective system for handling dynamic sky and a simple mini-map system in a game based on Unreal Engine 5.
