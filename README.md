@@ -31,3 +31,12 @@ You need to make the appropriate modifications and prepare everything in a separ
 ## The project should provide:
 1) Link to the GIT repository (containing the entire project) - Unreal Engine 5.1
 2) Build for Windows
+
+## Note
+Due to copyrights I cannot share UltraDynamicSky or QuestMap plugin files in this repository. In order to make everything work correctly, paste content of these plugins into `Content` directory, like this:
+```
+Content\UltraDynamicSky\Blueprints
+...
+Content\QuestMap\Blueprints
+...
+```
