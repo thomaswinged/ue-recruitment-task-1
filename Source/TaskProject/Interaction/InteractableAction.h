@@ -40,5 +40,5 @@ private:
 	UPROPERTY()
 	UAction* Action;
 
-	void NotifyListeners(TSubclassOf<UListenerEvent> Event);
+	void NotifyListeners(TSubclassOf<UObservableEvent> Event);
 };

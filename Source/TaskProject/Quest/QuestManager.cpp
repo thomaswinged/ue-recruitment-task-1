@@ -42,7 +42,7 @@ void AQuestManager::SetEnabledObjectiveListener(int32 ID, bool bEnabled)
 	}
 }
 
-void AQuestManager::OnListenerEvent_Implementation(UObject* Subject, TSubclassOf<UListenerEvent> Event)
+void AQuestManager::OnObservableEvent_Implementation(UObject* Subject, TSubclassOf<UObservableEvent> Event)
 {
 	FQuestObjective NextObjective;
 	const bool bNextObjectiveFound = GetNextObjective(NextObjective);

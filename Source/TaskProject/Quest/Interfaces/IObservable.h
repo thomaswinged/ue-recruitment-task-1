@@ -24,14 +24,14 @@ class TASKPROJECT_API IObservable
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void AddListener(UObject* Observer);
-	virtual void AddListener_Implementation(UObject* Observer)
+	virtual void AddListener_Implementation(UObject* Listener)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
 	}
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void RemoveListener(UObject* Observer);
-	virtual void RemoveListener_Implementation(UObject* Observer)
+	virtual void RemoveListener_Implementation(UObject* Listener)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
 	}

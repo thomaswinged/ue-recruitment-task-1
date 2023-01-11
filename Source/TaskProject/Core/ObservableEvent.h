@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ListenerEvent.generated.h"
+#include "ObservableEvent.generated.h"
 
 
 UCLASS(Abstract, BlueprintType)
-class UListenerEvent : public UObject
+class UObservableEvent : public UObject
 {
 	GENERATED_BODY()
 };

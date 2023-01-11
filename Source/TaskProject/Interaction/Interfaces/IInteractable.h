@@ -3,18 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TaskProject/Core/ListenerEvent.h"
+#include "TaskProject/Core/ObservableEvent.h"
 #include "UObject/Interface.h"
 #include "IInteractable.generated.h"
 
 UCLASS(BlueprintType)
-class UInteractedEvent : public UListenerEvent { GENERATED_BODY() };
+class UInteractedEvent : public UObservableEvent { GENERATED_BODY() };
 
 UCLASS(BlueprintType)
-class UEnteredRangeEvent : public UListenerEvent { GENERATED_BODY() };
+class UEnteredRangeEvent : public UObservableEvent { GENERATED_BODY() };
 
 UCLASS(BlueprintType)
-class UExitedRangeEvent : public UListenerEvent { GENERATED_BODY() };
+class UExitedRangeEvent : public UObservableEvent { GENERATED_BODY() };
 
 
 // This class does not need to be modified.

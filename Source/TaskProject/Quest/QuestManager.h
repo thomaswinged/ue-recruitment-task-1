@@ -16,7 +16,7 @@ class TASKPROJECT_API AQuestManager : public AActor, public IObserver
 public:
 	AQuestManager();
 
-	virtual void OnListenerEvent_Implementation(UObject* Subject, TSubclassOf<UListenerEvent> Event) override;
+	virtual void OnObservableEvent_Implementation(UObject* Subject, TSubclassOf<UObservableEvent> Event) override;
 	
 	UFUNCTION(BlueprintPure, Category="Quest Manager")
 	bool GetNextObjective(FQuestObjective& OutObjective) const;

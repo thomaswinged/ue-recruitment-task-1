@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ListenerEvent.h"
+#include "ObservableEvent.h"
 #include "Utils.generated.h"
 
 
@@ -19,7 +19,7 @@ struct FQuestObjective
 	AActor* Subject;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<UListenerEvent> EventType;
+	TSubclassOf<UObservableEvent> EventType;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool Completed = false;
