@@ -2,9 +2,6 @@
 
 #include "MyPlayerController.h"
 
-#include "MyCharacter.h"
-#include "TaskProject/Interaction/Interfaces/IInteractor.h"
-
 
 AMyPlayerController::AMyPlayerController()
 {
@@ -20,13 +17,17 @@ void AMyPlayerController::SetupInputComponent()
 
 void AMyPlayerController::HandleLMBClick()
 {
-	if (const auto MyCharacter = Cast<AMyCharacter>(GetPawn()))
+	if (MyCharacter)
 		MyCharacter->InteractWithWorld();
 }
 
 void AMyPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+
+	MyCharacter = Cast<AMyCharacter>(GetPawn());
+	if (!MyCharacter)
+		UE_LOG(LogTemp, Error, TEXT("%s >> No pawn found!"), ANSI_TO_TCHAR(__FUNCTION__));
 }
 
 void AMyPlayerController::Tick(float DeltaTime)

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TaskProject/Utils.h"
+#include "TaskProject/Core/ListenerEvent.h"
 #include "UObject/Interface.h"
 #include "IObserver.generated.h"
 
@@ -24,8 +24,8 @@ class TASKPROJECT_API IObserver
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	void OnNotify(UObject* Subject, TSubclassOf<UGameEvent> Event);
-	virtual void OnNotify_Implementation(UObject* Subject, TSubclassOf<UGameEvent> Event)
+	void OnListenerEvent(UObject* Subject, TSubclassOf<UListenerEvent> Event);
+	virtual void OnListenerEvent_Implementation(UObject* Subject, TSubclassOf<UListenerEvent> Event)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
 	}

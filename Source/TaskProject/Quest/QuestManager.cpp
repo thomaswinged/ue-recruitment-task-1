@@ -30,19 +30,23 @@ void AQuestManager::InitializeObjectives()
 
 void AQuestManager::SetEnabledObjectiveListener(int32 ID, bool bEnabled)
 {
-	if (Objectives[ID].Subject->GetClass()->ImplementsInterface(UObservable::StaticClass()))
+	if (const auto Subject = Objectives[ID].Subject)
 	{
-		if (bEnabled)
-			IObservable::Execute_AddListener(Objectives[ID].Subject, this);
-		else
-			IObservable::Execute_RemoveListener(Objectives[ID].Subject, this);
+		if (Subject->GetClass()->ImplementsInterface(UObservable::StaticClass()))
+		{
+			if (bEnabled)
+				IObservable::Execute_AddListener(Subject, this);
+			else
+				IObservable::Execute_RemoveListener(Subject, this);
+		}
 	}
 }
 
-void AQuestManager::OnNotify_Implementation(UObject* Subject, TSubclassOf<UGameEvent> Event)
+void AQuestManager::OnListenerEvent_Implementation(UObject* Subject, TSubclassOf<UListenerEvent> Event)
 {
 	FQuestObjective NextObjective;
-	if (GetNextObjective(NextObjective) && Subject == NextObjective.Subject && Event == NextObjective.EventType)
+	const bool bNextObjectiveFound = GetNextObjective(NextObjective);
+	if (bNextObjectiveFound && Subject == NextObjective.Subject && Event == NextObjective.EventType)
 	{
 		SetObjectiveCompleted(NextObjective.ID, true);
 		SetEnabledObjectiveListener(NextObjective.ID, false);
@@ -70,8 +74,14 @@ bool AQuestManager::GetNextObjective(FQuestObjective& OutObjective) const
 
 void AQuestManager::SetObjectiveCompleted(const int32 ID, const bool bCompleted)
 {
-	if (Objectives.Num() > ID)
+	for (int i = 0; i < Objectives.Num(); i++)
 	{
-		Objectives[ID].Completed = bCompleted;
+		if (Objectives[i].ID == ID)
+		{
+			Objectives[ID].Completed = bCompleted;
+			return;
+		}
 	}
+	
+	UE_LOG(LogTemp, Error, TEXT("%s >> Objective with ID: {%d} was not found!"), ANSI_TO_TCHAR(__FUNCTION__), ID)
 }

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Interfaces/IObserver.h"
+#include "TaskProject/Core/Utils.h"
 #include "QuestManager.generated.h"
 
 UCLASS(Abstract, HideCategories=(Transform, Rendering, Replication, Collision, HLOD, Physics, Networking, WorldPartition, Input, Actor, Advanced, Cooking, DataLayers))
@@ -15,18 +16,18 @@ class TASKPROJECT_API AQuestManager : public AActor, public IObserver
 public:
 	AQuestManager();
 
-	virtual void OnNotify_Implementation(UObject* Subject, TSubclassOf<UGameEvent> Event) override;
+	virtual void OnListenerEvent_Implementation(UObject* Subject, TSubclassOf<UListenerEvent> Event) override;
 	
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category="Quest Manager")
 	bool GetNextObjective(FQuestObjective& OutObjective) const;
 
 protected:
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category="Quest Manager")
 	TArray<FQuestObjective> Objectives;
 
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION(BlueprintImplementableEvent, Category="Quest Manager")
 	void OnObjectiveCompleted(FQuestObjective Objective);
 
 	

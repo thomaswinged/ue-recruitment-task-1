@@ -47,14 +47,14 @@ void AInteractableAction::OnRangeExit_Implementation(AActor* Actor)
 	NotifyListeners(UExitedRangeEvent::StaticClass());
 }
 
-void AInteractableAction::NotifyListeners(TSubclassOf<UGameEvent> Event)
+void AInteractableAction::NotifyListeners(TSubclassOf<UListenerEvent> Event)
 {
 	// Iterate over indices to avoid "Array has changed during ranged-for iteration!" error
 	for (int32 i = 0 ; i < Listeners.Num() ; i++)
 	{
 		if (Listeners[i]->GetClass()->ImplementsInterface(UObserver::StaticClass()))
 		{
-			IObserver::Execute_OnNotify(Listeners[i], this, Event);
+			IObserver::Execute_OnListenerEvent(Listeners[i], this, Event);
 		}
 	}
 }

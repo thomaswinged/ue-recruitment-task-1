@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "MyCharacter.h"
 #include "MyPlayerController.generated.h"
 
 UCLASS()
@@ -23,4 +24,8 @@ protected:
 
 public:
 	virtual void Tick(float DeltaTime) override;
+
+private:
+	UPROPERTY()
+	AMyCharacter* MyCharacter;
 };

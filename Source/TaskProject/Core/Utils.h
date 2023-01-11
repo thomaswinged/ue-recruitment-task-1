@@ -3,10 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ListenerEvent.h"
 #include "Utils.generated.h"
-
-UCLASS(Abstract, BlueprintType)
-class UGameEvent : public UObject { GENERATED_BODY() };
 
 
 USTRUCT(BlueprintType)
@@ -21,7 +19,7 @@ struct FQuestObjective
 	AActor* Subject;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<UGameEvent> EventType;
+	TSubclassOf<UListenerEvent> EventType;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool Completed = false;

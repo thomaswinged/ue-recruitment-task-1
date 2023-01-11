@@ -2,6 +2,7 @@
 
 
 #include "MyCharacter.h"
+#include "TaskProject/Interaction/Interfaces/IInteractor.h"
 
 
 AMyCharacter::AMyCharacter()
