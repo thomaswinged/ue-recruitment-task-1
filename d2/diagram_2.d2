@@ -1,0 +1,100 @@
+direction: down
+
+AAction {
+    shape: class
+
+    Init()
+    Execute(AActor*)
+    -Description FText
+}
+
+IInteractable {
+    shape: class
+
+    Interact()
+    OnRangeEnter(AActor*)
+    OnRangeExit(AActor*)
+}
+
+AInteractableAction {
+    shape: class
+
+    ActionType TSubclassOf/UAction/
+    -Action UAction*
+    Listeners TArray/UObject*/
+}
+
+IInteractor {
+    shape: class
+
+    TriggerInteractables()
+}
+
+AMyCharacter {
+    shape: class
+
+    InteractWithWorld()
+}
+
+USphereInteractor {
+    shape: class
+
+    OnBeginOverlap() void
+    OnEndOverlap() void
+}
+
+AInteractableAction <- AAction {
+    source-arrowhead: {
+        shape: diamond
+    }
+
+    target-arrowhead: 1
+}
+
+AInteractableAction -> IInteractable {
+    stroke-dash: 5
+}
+
+AMyCharacter <- USphereInteractor {
+    source-arrowhead {
+        shape: diamond
+        style.filled: true
+    }
+}
+
+USphereInteractor -> IInteractor {
+    stroke-dash: 5
+}
+
+USphereInteractor -> IInteractable: Execute_Interact
+
+IObserver {
+    shape: class
+
+    OnObservableEvent(UObject*, TSubclassOf/UObservableEvent/)
+}
+
+AQuestManager {
+    shape: class
+
+    Objectives TArray/FQuestObjective/
+    GetNextObjective(FQuestObjective&)
+}
+
+AQuestManager -> IObserver {
+    stroke-dash: 5
+}
+
+IObservable {
+    shape: class
+
+    AddListener(UObject*)
+    RemoveListener(UObject*)
+}
+
+AInteractableAction -> IObservable {
+    stroke-dash: 5
+}
+
+AQuestManager -> IObservable: Execute_AddListener
+AInteractableAction -> IObserver: Execute_OnObservableEvent

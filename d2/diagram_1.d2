@@ -1,0 +1,68 @@
+direction: right
+
+AAction {
+    shape: class
+
+    Init()
+    Execute(AActor*)
+    -Description FText
+}
+
+IInteractable {
+    shape: class
+
+    Interact()
+    OnRangeEnter(AActor*)
+    OnRangeExit(AActor*)
+}
+
+AInteractableAction {
+    shape: class
+
+    ActionType TSubclassOf UAction
+    -Action UAction*
+}
+
+IInteractor {
+    shape: class
+
+    TriggerInteractables()
+}
+
+AMyCharacter {
+    shape: class
+
+    InteractWithWorld()
+}
+
+USphereInteractor {
+    shape: class
+
+    OnBeginOverlap() void
+    OnEndOverlap() void
+}
+
+AInteractableAction <- AAction {
+    source-arrowhead: {
+        shape: diamond
+    }
+
+    target-arrowhead: 1
+}
+
+AInteractableAction -> IInteractable {
+    stroke-dash: 5
+}
+
+AMyCharacter <- USphereInteractor {
+    source-arrowhead {
+        shape: diamond
+        style.filled: true
+    }
+}
+
+USphereInteractor -> IInteractor {
+    stroke-dash: 5
+}
+
+USphereInteractor -> IInteractable: Execute_Interact
