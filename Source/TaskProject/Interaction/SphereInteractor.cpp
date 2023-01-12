@@ -11,8 +11,6 @@ USphereInteractor::USphereInteractor()
 
 	OnComponentBeginOverlap.AddDynamic(this, &USphereInteractor::OnBeginOverlap);
 	OnComponentEndOverlap.AddDynamic(this, &USphereInteractor::OnEndOverlap);
-
-	InRange = TArray<AActor*>();
 }
 
 void USphereInteractor::BeginPlay()
@@ -21,7 +19,7 @@ void USphereInteractor::BeginPlay()
 }
 
 void USphereInteractor::TickComponent(float DeltaTime, ELevelTick TickType,
-                                       FActorComponentTickFunction* ThisTickFunction)
+									   FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
@@ -30,15 +28,12 @@ void USphereInteractor::TriggerInteractables_Implementation()
 {
 	for (const auto Actor : InRange)
 	{
-		if (Actor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
-		{
-			IInteractable::Execute_Interact(Actor);
-		}
+		IInteractable::Execute_Interact(Actor.GetObject());
 	}
 }
 
 void USphereInteractor::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* Other,
-                                       UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+									   UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (!InRange.Contains(Other))
 	{

@@ -16,7 +16,7 @@ class TASKPROJECT_API AQuestManager : public AActor, public IObserver
 public:
 	AQuestManager();
 
-	virtual void OnObservableEvent_Implementation(UObject* Subject, TSubclassOf<UObservableEvent> Event) override;
+	virtual void OnObservableEvent_Implementation(const TScriptInterface<IObservable>& Subject, TSubclassOf<UObservableEvent> Event) override;
 	
 	UFUNCTION(BlueprintPure, Category="Quest Manager")
 	bool GetNextObjective(FQuestObjective& OutObjective) const;
@@ -29,7 +29,6 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent, Category="Quest Manager")
 	void OnObjectiveCompleted(FQuestObjective Objective);
-
 	
 private:
 	void InitializeObjectives();

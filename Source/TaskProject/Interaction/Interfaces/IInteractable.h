@@ -7,6 +7,8 @@
 #include "UObject/Interface.h"
 #include "IInteractable.generated.h"
 
+class IInteractor;
+
 UCLASS(BlueprintType)
 class UInteractedEvent : public UObservableEvent { GENERATED_BODY() };
 
@@ -39,15 +41,15 @@ public:
 	}
 
 	UFUNCTION(BlueprintNativeEvent, Category="Interaction")
-	void OnRangeEnter(AActor* Actor);
-	virtual void OnRangeEnter_Implementation(AActor* Actor)
+	void OnRangeEnter(const TScriptInterface<IInteractor>& Interactor);
+	virtual void OnRangeEnter_Implementation(const TScriptInterface<IInteractor>& Interactor)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
 	}
 
 	UFUNCTION(BlueprintNativeEvent, Category="Interaction")
-	void OnRangeExit(AActor* Actor);
-	virtual void OnRangeExit_Implementation(AActor* Actor)
+	void OnRangeExit(const TScriptInterface<IInteractor>& Interactor);
+	virtual void OnRangeExit_Implementation(const TScriptInterface<IInteractor>& Interactor)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s >> Not implemented!"), ANSI_TO_TCHAR(__FUNCTION__))
 	}

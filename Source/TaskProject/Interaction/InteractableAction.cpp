@@ -31,18 +31,15 @@ UAction* AInteractableAction::GetAction() const
 
 void AInteractableAction::Interact_Implementation()
 {
-	if (Action)
-	{
-		NotifyListeners(UInteractedEvent::StaticClass());
-	}
+	NotifyListeners(UInteractedEvent::StaticClass());
 }
 
-void AInteractableAction::OnRangeEnter_Implementation(AActor* Actor)
+void AInteractableAction::OnRangeEnter_Implementation(const TScriptInterface<IInteractor>& Interactor)
 {
 	NotifyListeners(UEnteredRangeEvent::StaticClass());
 }
 
-void AInteractableAction::OnRangeExit_Implementation(AActor* Actor)
+void AInteractableAction::OnRangeExit_Implementation(const TScriptInterface<IInteractor>& Interactor)
 {
 	NotifyListeners(UExitedRangeEvent::StaticClass());
 }
@@ -52,20 +49,17 @@ void AInteractableAction::NotifyListeners(TSubclassOf<UObservableEvent> Event)
 	// Iterate over indices to avoid "Array has changed during ranged-for iteration!" error
 	for (int32 i = 0 ; i < Listeners.Num() ; i++)
 	{
-		if (Listeners[i]->GetClass()->ImplementsInterface(UObserver::StaticClass()))
-		{
-			IObserver::Execute_OnObservableEvent(Listeners[i], this, Event);
-		}
+		IObserver::Execute_OnObservableEvent(Listeners[i].GetObject(), this, Event);
 	}
 }
 
-void AInteractableAction::AddListener_Implementation(UObject* Observer)
+void AInteractableAction::AddListener_Implementation(const TScriptInterface<IObserver>& Observer)
 {
 	if (!Listeners.Contains(Observer))
 		Listeners.Add(Observer);
 }
 
-void AInteractableAction::RemoveListener_Implementation(UObject* Observer)
+void AInteractableAction::RemoveListener_Implementation(const TScriptInterface<IObserver>& Observer)
 {
 	if (Listeners.Contains(Observer))
 		Listeners.Remove(Observer);

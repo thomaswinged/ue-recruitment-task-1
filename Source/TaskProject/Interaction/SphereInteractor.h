@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Components/SphereComponent.h"
+#include "Interfaces/IInteractable.h"
 #include "Interfaces/IInteractor.h"
 #include "SphereInteractor.generated.h"
 
@@ -27,7 +28,7 @@ protected:
 
 private:
 	UPROPERTY(VisibleInstanceOnly)
-	TArray<AActor*> InRange;
+	TArray<TScriptInterface<IInteractable>> InRange = TArray<TScriptInterface<IInteractable>>();
 	
 	UFUNCTION()
 	void OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);

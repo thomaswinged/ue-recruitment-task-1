@@ -18,14 +18,14 @@ public:
 	AInteractableAction();
 
 	virtual void Interact_Implementation() override;
-	virtual void OnRangeEnter_Implementation(AActor* Actor) override;
-	virtual void OnRangeExit_Implementation(AActor* Actor) override;
+	virtual void OnRangeEnter_Implementation(const TScriptInterface<IInteractor>& Interactor) override;
+	virtual void OnRangeExit_Implementation(const TScriptInterface<IInteractor>& Interactor) override;
 
 	UPROPERTY(EditAnywhere, Category="Action")
 	TSubclassOf<UAction> ActionType;
 
-	virtual void AddListener_Implementation(UObject* Observer) override;
-	virtual void RemoveListener_Implementation(UObject* Observer) override;
+	virtual void AddListener_Implementation(const TScriptInterface<IObserver>& Observer) override;
+	virtual void RemoveListener_Implementation(const TScriptInterface<IObserver>& Observer) override;
 
 protected:
 	virtual void BeginPlay() override;
@@ -34,7 +34,7 @@ protected:
 	UAction* GetAction() const;
 
 	UPROPERTY(VisibleAnywhere)
-	TArray<UObject*> Listeners;
+	TArray<TScriptInterface<IObserver>> Listeners;
 
 private:
 	UPROPERTY()
