@@ -26,9 +26,9 @@ void USphereInteractor::TickComponent(float DeltaTime, ELevelTick TickType,
 
 void USphereInteractor::TriggerInteractables_Implementation()
 {
-	for (const auto Actor : InRange)
+	for (const auto Interactable : InRange)
 	{
-		IInteractable::Execute_Interact(Actor.GetObject());
+		IInteractable::Execute_Interact(Interactable.GetObject());
 	}
 }
 
