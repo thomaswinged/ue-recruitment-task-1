@@ -12,8 +12,8 @@ IInteractable {
     shape: class
 
     Interact()
-    OnRangeEnter(AActor*)
-    OnRangeExit(AActor*)
+    OnRangeEnter(const TScriptInterface/IInteractor/&)
+    OnRangeExit(const TScriptInterface/IInteractor/&)
 }
 
 AInteractableAction {
@@ -21,7 +21,7 @@ AInteractableAction {
 
     ActionType TSubclassOf/UAction/
     -Action UAction*
-    Listeners TArray/UObject*/
+    Listeners TArray/TScriptInterface/IObserver//
 }
 
 IInteractor {
@@ -71,7 +71,7 @@ USphereInteractor -> IInteractable: Execute_Interact
 IObserver {
     shape: class
 
-    OnObservableEvent(UObject*, TSubclassOf/UObservableEvent/)
+    OnObservableEvent(const TScriptInterface/IObservable/&, TSubclassOf/UObservableEvent/)
 }
 
 AQuestManager {
@@ -88,8 +88,8 @@ AQuestManager -> IObserver {
 IObservable {
     shape: class
 
-    AddListener(UObject*)
-    RemoveListener(UObject*)
+    AddListener(const TScriptInterface/IObserver/&)
+    RemoveListener(const TScriptInterface/IObserver/&)
 }
 
 AInteractableAction -> IObservable {
